@@ -1,0 +1,124 @@
+<div class="min-h-screen bg-white">
+    <div class="max-w-5xl mx-auto px-4 sm:px-8 py-8">
+  
+      <!-- Back + Title -->
+      <div class="mb-6">
+        <a routerLink="/" class="inline-flex items-center gap-1 text-gray-400 text-sm hover:text-gray-600 mb-3 transition-colors">
+          <span class="text-lg leading-none">‹</span>
+        </a>
+        <h1 class="text-xl sm:text-2xl font-extrabold text-gray-900">¡Hola! Configuremos tu perfil</h1>
+        <p class="text-gray-400 text-sm mt-1">Queremos conocerte mejor.</p>
+      </div>
+  
+      <!-- Two-column responsive -->
+      <div class="flex flex-col lg:flex-row gap-8 xl:gap-12 items-start">
+  
+        <!-- LEFT: Yellow trainer card -->
+        <div class="w-full sm:w-72 lg:w-56 mx-auto lg:mx-0 flex-shrink-0">
+          <div class="bg-yellow-400 rounded-3xl p-5 flex flex-col items-center gap-4 trainer-card-shadow">
+            <p class="text-sm font-bold text-yellow-800">Imágen perfil</p>
+  
+            <label class="block">
+              <div class="w-32 h-32 rounded-full border-4 border-white overflow-hidden bg-white shadow-lg flex items-center justify-center">
+                @if (photoPreview()) {
+                  <img [src]="photoPreview()!" alt="Trainer" class="w-full h-full object-cover" />
+                } @else {
+                  <div class="w-full h-full bg-gray-100 flex items-center justify-center">
+                    <svg class="w-12 h-12 text-gray-300" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
+                    </svg>
+                  </div>
+                }
+              </div>
+              <input type="file" accept="image/*" (change)="onPhotoChange($event)" class="hidden" />
+            </label>
+  
+            <div class="w-full bg-white/70 rounded-xl px-3 py-2 flex items-center justify-between text-xs text-gray-600 min-h-[34px]">
+              @if (photoPreview()) {
+                <span class="truncate max-w-[110px]">image_002.jpg</span>
+                <button type="button"
+                  (click)="photoPreview.set(null); form.get('photo')!.setValue(null)"
+                  class="text-red-400 hover:text-red-600 ml-1 font-bold text-sm leading-none flex-shrink-0">🗑</button>
+              } @else {
+                <span class="text-gray-400 italic">Sin imagen</span>
+              }
+            </div>
+          </div>
+          @if (submitted() && f['photo'].errors?.['required']) {
+            <p class="text-red-500 text-xs mt-2 text-center">La foto es requerida.</p>
+          }
+        </div>
+  
+        <!-- RIGHT: Info box -->
+        <div class="flex-1 w-full">
+          <div class="border-2 border-blue-300 rounded-2xl p-5 sm:p-6">
+            <h2 class="text-base font-bold text-gray-800 mb-0.5">Tu información</h2>
+            <p class="text-gray-400 text-xs mb-5 leading-relaxed">Completa la siguiente información para completar tu perfil</p>
+  
+            <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate class="flex flex-col gap-5">
+  
+              <!-- Name -->
+              <div class="relative">
+                <label class="absolute -top-2 left-3 bg-white px-1 text-xs text-gray-500 font-semibold z-10">Nombre*</label>
+                <input type="text" formControlName="name" placeholder="Juan Borjas"
+                  class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-400 text-sm transition-colors"
+                  [class.border-red-400]="submitted() && f['name'].invalid" />
+                @if (submitted() && f['name'].errors?.['required']) {
+                  <p class="text-red-500 text-xs mt-1">El nombre es requerido.</p>
+                }
+              </div>
+  
+              <!-- Hobby -->
+              <div class="relative">
+                <label class="absolute -top-2 left-3 bg-white px-1 text-xs text-gray-500 font-semibold z-10">Pasatiempo favorito</label>
+                <input type="text" formControlName="hobby" placeholder="Aprender sobre Ciberseguridad"
+                  class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-400 text-sm transition-colors" />
+              </div>
+  
+              <!-- Birthday -->
+              <div class="relative">
+                <label class="absolute -top-2 left-3 bg-white px-1 text-xs text-gray-500 font-semibold z-10">Cumpleaños*</label>
+                <input type="date" formControlName="birthDate"
+                  class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-400 text-sm transition-colors"
+                  [class.border-red-400]="submitted() && f['birthDate'].invalid" />
+                @if (submitted() && f['birthDate'].errors?.['required']) {
+                  <p class="text-red-500 text-xs mt-1">La fecha es requerida.</p>
+                }
+              </div>
+  
+              <!-- Document -->
+              <div class="relative">
+                <label class="absolute -top-2 left-3 bg-white px-1 text-xs text-gray-500 font-semibold z-10">
+                  @if (f['birthDate'].value) {
+                    {{ isAdult() ? 'DUI*' : 'Carnet de Minoría' }}
+                  } @else {
+                    Documento*
+                  }
+                </label>
+                <input type="text" formControlName="documentNumber"
+                  [placeholder]="isAdult() ? '00000000-0' : 'Carnet de Minoría'"
+                  appDuiMask
+                  class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-400 text-sm font-mono transition-colors"
+                  [class.border-red-400]="submitted() && f['documentNumber'].invalid" />
+                @if (submitted() && f['documentNumber'].errors?.['required']) {
+                  <p class="text-red-500 text-xs mt-1">El DUI es requerido para mayores de edad.</p>
+                }
+                @if (submitted() && f['documentNumber'].errors?.['invalidDui']) {
+                  <p class="text-red-500 text-xs mt-1">Formato inválido. Usa: 00000000-0</p>
+                }
+              </div>
+  
+              <div class="flex justify-end mt-1">
+                <button type="submit"
+                  class="px-8 py-2.5 bg-gray-200 hover:bg-blue-600 hover:text-white text-gray-600 font-bold rounded-xl text-sm transition-all active:scale-95">
+                  Continuar
+                </button>
+              </div>
+  
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

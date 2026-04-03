@@ -1,0 +1,94 @@
+<header
+  class="w-full bg-white border-b border-gray-100 px-4 sm:px-8 py-3 flex items-center justify-between"
+>
+  <!-- Logo -->
+  <a routerLink="/" class="flex-shrink-0">
+    <img
+      src="assets/pokemon-logo.png"
+      alt="Pokémon"
+      class="h-10"
+      onerror="this.style.display='none'"
+    />
+  </a>
+
+  <!-- Right: only show if trainer exists -->
+  @if (trainer()) {
+  <div class="flex items-center gap-2 ml-auto">
+    <!-- Search icon -->
+    <button
+      class="w-9 h-9 flex items-center justify-center rounded-full border border-gray-200 hover:bg-gray-50 text-gray-500 transition-colors"
+    >
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+        />
+      </svg>
+    </button>
+
+    <!-- Profile pill + dropdown -->
+    <div class="relative">
+      <button
+        (click)="toggleDropdown()"
+        class="flex items-center gap-2 border border-gray-200 rounded-full px-3 py-1.5 text-sm font-bold text-gray-700 hover:bg-gray-50 transition-colors shadow-sm max-w-[160px]"
+      >
+        <span class="truncate">{{ trainer()!.name }}</span>
+        <svg
+          class="w-3 h-3 flex-shrink-0 transition-transform duration-200"
+          [class.rotate-180]="dropdownOpen()"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2.5"
+            d="M19 9l-7 7-7-7"
+          />
+        </svg>
+      </button>
+
+      @if (dropdownOpen()) {
+      <div
+        class="absolute right-0 top-full mt-2 w-48 bg-white border border-gray-200 rounded-2xl shadow-xl z-50 overflow-hidden py-1"
+      >
+        <a
+          routerLink="/trainer"
+          (click)="closeDropdown()"
+          class="flex items-center gap-3 px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+        >
+          <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+            />
+          </svg>
+          <span class="font-semibold">Editar perfil</span>
+        </a>
+        <div class="h-px bg-gray-100 mx-3"></div>
+        <a
+          routerLink="/pokemon"
+          (click)="closeDropdown()"
+          class="flex items-center gap-3 px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+        >
+          <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 10h16M4 14h16M4 18h16"
+            />
+          </svg>
+          <span class="font-semibold">Editar Pokémon</span>
+        </a>
+      </div>
+      }
+    </div>
+  </div>
+  }
+</header>
