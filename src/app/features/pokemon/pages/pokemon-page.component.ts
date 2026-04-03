@@ -1,4 +1,4 @@
-import { Component, signal, computed, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, signal, computed, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { ScrollingModule } from '@angular/cdk/scrolling';
@@ -8,14 +8,14 @@ import { PokemonService } from '../../../core/services/pokemon.service';
 import { TrainerService } from '../../../core/services/trainer.service';
 import { LoadingComponent } from '../../../shared/components/loading/loading.component';
 import { ListEntry, SelectedPokemon } from '../../../core/models/pokemon.model';
+import { PokeCardComponent } from '../components/poke-card.component';
 
 registerSwiper();
 
 @Component({
   selector: 'app-pokemon-page',
   standalone: true,
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  imports: [FormsModule, RouterLink, LoadingComponent, ScrollingModule],
+  imports: [FormsModule, RouterLink, LoadingComponent, ScrollingModule,PokeCardComponent],
   templateUrl: './pokemon-page.component.html',
 })
 export class PokemonPageComponent implements OnInit {

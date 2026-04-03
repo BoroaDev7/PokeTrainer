@@ -17,3 +17,43 @@ input[type="checkbox"], input[type="radio"], swiper-slide {
 
 /* Trainer card shadow */
 .trainer-card-shadow { box-shadow: 0 8px 28px rgba(0,0,0,0.13); }
+
+/* Pokemon card hover */
+.poke-card-hover { transition: transform 0.15s ease, box-shadow 0.15s ease; }
+.poke-card-hover:hover { transform: translateY(-2px); box-shadow: 0 4px 14px rgba(0,0,0,0.09); }
+
+/* Stat fill animation */
+.stat-fill { transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+
+cdk-virtual-scroll-viewport {
+  width: 100%;
+  overflow-x: hidden !important;
+}
+
+cdk-virtual-scroll-viewport .cdk-virtual-scroll-content-wrapper {
+  width: 100%;
+}
+/* Type badge colors */
+.type-normal    { background-color: #9ca3af !important; }
+.type-fire      { background-color: #ef4444 !important; }
+.type-water     { background-color: #3b82f6 !important; }
+.type-grass     { background-color: #22c55e !important; }
+.type-electric  { background-color: #eab308 !important; }
+.type-ice       { background-color: #67e8f9 !important; color: #1e3a8a !important; }
+.type-fighting  { background-color: #b45309 !important; }
+.type-poison    { background-color: #a855f7 !important; }
+.type-ground    { background-color: #d97706 !important; }
+.type-flying    { background-color: #818cf8 !important; }
+.type-psychic   { background-color: #ec4899 !important; }
+.type-bug       { background-color: #84cc16 !important; }
+.type-rock      { background-color: #78716c !important; }
+.type-ghost     { background-color: #6d28d9 !important; }
+.type-dragon    { background-color: #4338ca !important; }
+.type-dark      { background-color: #1f2937 !important; }
+.type-steel     { background-color: #94a3b8 !important; }
+.type-fairy     { background-color: #f9a8d4 !important; color: #831843 !important; }
+
+/* Scrollbar subtle */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: #f1f1f1; }
+::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 4px; }

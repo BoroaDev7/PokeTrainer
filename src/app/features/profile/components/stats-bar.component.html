@@ -1,0 +1,26 @@
+<div class="flex flex-col gap-2 w-full">
+  @for (stat of stats(); track stat.name) {
+  <div class="flex items-center gap-2">
+    <!-- Label -->
+    <span class="text-xs text-gray-500 w-28 flex-shrink-0 leading-tight">{{
+      getLabel(stat.name)
+    }}</span>
+    <!-- Bar track -->
+    <div class="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden min-w-0">
+      <div
+        class="h-full rounded-full stat-fill"
+        [style.width.%]="getPercent(stat.name, stat.value)"
+        [class.bg-green-400]="getPercent(stat.name, stat.value) >= 60"
+        [class.bg-yellow-400]="
+          getPercent(stat.name, stat.value) >= 35 && getPercent(stat.name, stat.value) < 60
+        "
+        [class.bg-red-400]="getPercent(stat.name, stat.value) < 35"
+      ></div>
+    </div>
+    <!-- Value -->
+    <span class="text-xs font-bold text-gray-600 w-7 text-right flex-shrink-0">{{
+      stat.value
+    }}</span>
+  </div>
+  }
+</div>

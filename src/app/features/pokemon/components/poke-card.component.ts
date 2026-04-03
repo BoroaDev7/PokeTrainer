@@ -2,10 +2,7 @@ import { Component, input, output } from '@angular/core';
 
 @Component({
   selector: 'app-poke-card',
-  standalone: true,
-  template: `
-
-  `,
+  templateUrl:'./poke-card.component.html',
 })
 export class PokeCardComponent {
   id = input.required<number>();

@@ -6,6 +6,8 @@ import {
 import { Router, RouterLink } from '@angular/router';
 import { TrainerService } from '../../../core/services/trainer.service';
 import { Trainer } from '../../../core/models/trainer.model';
+import { DuiMaskDirective } from '../../../shared/directives/dui-mask.directive';
+
 
 function duiValidator(c: AbstractControl) {
   return /^\d{8}-\d$/.test(c.value) ? null : { invalidDui: true };
@@ -23,7 +25,7 @@ function calcAge(dateStr: string): number {
 @Component({
   selector: 'app-trainer-page',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink,DuiMaskDirective],
   templateUrl: './trainer-page.component.html',
 })
 export class TrainerPageComponent implements OnInit {
