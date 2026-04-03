@@ -1,59 +1,161 @@
-# PokeTrainer
+# Pokémon Trainer App
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.2.0.
+A single-page application that allow users to create a Pokémon Trainer profile and assemble their Generation 1 team, built with **Angular 20**, **Signals**, and **Tailwind CSS**.
 
-## Development server
+---
 
-To start a local development server, run:
+## Screenshots
 
-```bash
-ng serve
+### Step 1 — Trainer Profile Setup
+Configure your trainer identity: upload a photo by clicking on the avatar input, enter your name, favorite hobby, date of birth, and DUI (auto-formatted) or minor ID card based on your age.
+
+![Trainer profile form](docs/screenshots/step1-trainer-form.png)
+
+---
+
+### Step 2 — Pokémon Team Selection
+Browse all Pokémon with real-time search by name or ID. Select exactly 3 to form your team. Sprites load progressively in chunks to avoid API rate limits.
+
+![Pokémon selection](docs/screenshots/step2-pokemon-selection.png)
+
+---
+
+### Step 3 — Trainer Card & Team Stats
+View your complete trainer card alongside your Pokémon team. Each Pokémon shows its sprite, type badges, and stat progress bars (HP, ATK, DEF, SP.ATK, SP.DEF, SPD) relative to their Generation 1 maximums.
+
+![Trainer profile and Pokémon stats](docs/screenshots/step3-profile.png)
+
+
+
+## Architecture
+
+```
+📦poke-trainer
+ ┣ 📂docs
+ ┃ ┗ 📂screenshots
+ ┃ ┃ ┣ 📜step1-trainer-form.png
+ ┃ ┃ ┣ 📜step2-pokemon-selection.png
+ ┃ ┃ ┗ 📜step3-profile.png
+ ┣ 📂node_modules
+ ┣ 📂public
+ ┃ ┗ 📜poke-trainer.ico
+ ┣ 📂src
+ ┃ ┣ 📂app
+ ┃ ┃ ┣ 📂core
+ ┃ ┃ ┃ ┣ 📂guards
+ ┃ ┃ ┃ ┃ ┗ 📜trainer.guard.ts
+ ┃ ┃ ┃ ┣ 📂models
+ ┃ ┃ ┃ ┃ ┣ 📜pokemon.model.ts
+ ┃ ┃ ┃ ┃ ┗ 📜trainer.model.ts
+ ┃ ┃ ┃ ┗ 📂services
+ ┃ ┃ ┃ ┃ ┣ 📜pokemon.service.ts
+ ┃ ┃ ┃ ┃ ┣ 📜storage.service.ts
+ ┃ ┃ ┃ ┃ ┗ 📜trainer.service.ts
+ ┃ ┃ ┣ 📂features
+ ┃ ┃ ┃ ┣ 📂pokemon
+ ┃ ┃ ┃ ┃ ┣ 📂components
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜poke-card.component.html
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜poke-card.component.ts
+ ┃ ┃ ┃ ┃ ┗ 📂pages
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜pokemon-page.component.html
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜pokemon-page.component.ts
+ ┃ ┃ ┃ ┣ 📂profile
+ ┃ ┃ ┃ ┃ ┣ 📂components
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜stats-bar.component.html
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜stats-bar.component.ts
+ ┃ ┃ ┃ ┃ ┗ 📂pages
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜profile-page.component.html
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜profile-page.component.ts
+ ┃ ┃ ┃ ┗ 📂trainer
+ ┃ ┃ ┃ ┃ ┗ 📂pages
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜trainer-page.component.html
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜trainer-page.component.ts
+ ┃ ┃ ┣ 📂shared
+ ┃ ┃ ┃ ┣ 📂components
+ ┃ ┃ ┃ ┃ ┣ 📂loading
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜loading.component.html
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜loading.component.ts
+ ┃ ┃ ┃ ┃ ┗ 📂navbar
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜navbar.component.html
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜navbar.component.ts
+ ┃ ┃ ┃ ┣ 📂directives
+ ┃ ┃ ┃ ┃ ┗ 📜dui-mask.directive.ts
+ ┃ ┃ ┃ ┗ 📂pipes
+ ┃ ┃ ┃ ┃ ┗ 📜pokemon-search.pipe.ts
+ ┃ ┃ ┣ 📜app.component.html
+ ┃ ┃ ┣ 📜app.component.ts
+ ┃ ┃ ┣ 📜app.config.ts
+ ┃ ┃ ┗ 📜app.routes.ts
+ ┃ ┣ 📂assets
+ ┃ ┃ ┣ 📜loading.gif
+ ┃ ┃ ┣ 📜poke-cursor.png
+ ┃ ┃ ┣ 📜poke-pointer.png
+ ┃ ┃ ┗ 📜pokemon-logo.png
+ ┃ ┣ 📜index.html
+ ┃ ┣ 📜main.ts
+ ┃ ┗ 📜styles.css
+ ┣ 📜.editorconfig
+ ┣ 📜.gitignore
+ ┣ 📜.postcssrc.json
+ ┣ 📜angular.json
+ ┣ 📜Dockerfile
+ ┣ 📜nginx.conf
+ ┣ 📜package-lock.json
+ ┣ 📜package.json
+ ┣ 📜README.md
+ ┣ 📜tailwind.config.js
+ ┣ 📜tsconfig.app.json
+ ┣ 📜tsconfig.json
+ ┗ 📜tsconfig.spec.json
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Every component is **standalone** — no NgModules. State is managed entirely with **Angular Signals** (`signal`, `computed`, `input`, `output`). Routes use functional guards and lazy `loadComponent`.
 
-## Code scaffolding
+---
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Getting Started
 
-```bash
-ng generate component component-name
-```
+### Prerequisites
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
+- Node.js >= 18
+- Angular CLI >= 20
 
 ```bash
-ng build
+npm install -g @angular/cli
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+### Install & run
 
 ```bash
-ng test
+git clone https://github.com/BoroaDev7/PokeTrainer.git
+cd poketrainer
+npm install
+npm start
 ```
 
-## Running end-to-end tests
+App runs at **http://localhost:4200**
 
-For end-to-end (e2e) testing, run:
+### Production build
 
 ```bash
-ng e2e
+npm run build:prod
+# Output: dist/poketrainer/browser/
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+---
 
-## Additional Resources
+## Docker
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+```bash
+# Build image
+docker build -t poketrainer .
+
+# Run container
+docker run -p 8080:80 poketrainer
+# http://localhost:8080
+```
+
+Multi-stage build: Angular compiles in Node 20 Alpine, output is served by nginx Alpine with SPA routing configured.
+
+
+Commits and comments in **English** per project requirements.
