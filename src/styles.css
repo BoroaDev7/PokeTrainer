@@ -1,1 +1,19 @@
-/* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: 'Nunito', system-ui, sans-serif;
+  /* Scale down the 128x128 cursor to ~24px using CSS size hint */
+  cursor: url('assets/poke-cursor.png') 12 4, auto;
+}
+
+a, button, [role="button"], label, .cursor-pointer,
+input[type="checkbox"], input[type="radio"], swiper-slide {
+  cursor: url('assets/poke-pointer.png') 12 4, pointer !important;
+}
+
+/* Trainer card shadow */
+.trainer-card-shadow { box-shadow: 0 8px 28px rgba(0,0,0,0.13); }
