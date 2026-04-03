@@ -1,0 +1,32 @@
+<div
+  class="relative flex flex-col items-center p-3 rounded-2xl border-2 cursor-pointer select-none transition-all duration-200"
+  [class.border-red-500]="selected()"
+  [class.bg-red-50]="selected()"
+  [class.border-gray-200]="!selected()"
+  [class.bg-white]="!selected()"
+  [class.opacity-40]="disabled()"
+  [class.cursor-not-allowed]="disabled()"
+  [class.hover:border-red-400]="!disabled()"
+  [class.hover:-translate-y-1]="!disabled()"
+  [class.shadow-md]="selected()"
+  (click)="onSelect()"
+>
+  @if (selected()) {
+  <span
+    class="absolute top-2 right-2 w-5 h-5 bg-red-500 text-white rounded-full flex items-center justify-center text-xs font-bold"
+    >✓</span
+  >
+  }
+
+  <span class="text-xs text-gray-400 font-medium self-start">#{{ id() }}</span>
+
+  <div class="w-20 h-20 flex items-center justify-center">
+    @if (sprite()) {
+    <img [src]="sprite()!" [alt]="name()" class="w-full h-full object-contain" loading="lazy" />
+    } @else {
+    <span class="text-4xl text-gray-200">?</span>
+    }
+  </div>
+
+  <span class="text-xs font-bold text-gray-800 capitalize text-center mt-1">{{ name() }}</span>
+</div>
