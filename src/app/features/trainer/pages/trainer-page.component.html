@@ -60,7 +60,7 @@
               <!-- Name -->
               <div class="relative">
                 <label class="absolute -top-2 left-3 bg-white px-1 text-xs text-gray-500 font-semibold z-10">Nombre*</label>
-                <input type="text" formControlName="name" placeholder="Inserta tu nombre"
+                <input type="text" formControlName="name" placeholder="Ejemplo: Juan Borjas"
                   class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-400 text-sm transition-colors"
                   [class.border-red-400]="submitted() && f['name'].invalid" />
                 @if (submitted() && f['name'].errors?.['required']) {
@@ -71,7 +71,7 @@
               <!-- Hobby -->
               <div class="relative">
                 <label class="absolute -top-2 left-3 bg-white px-1 text-xs text-gray-500 font-semibold z-10">Pasatiempo favorito</label>
-                <input type="text" formControlName="hobby" placeholder="Inserta to Actividad Favorita"
+                <input type="text" formControlName="hobby" placeholder="Ejemplo: Jugar VideoJuegos"
                   class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-400 text-sm transition-colors" />
               </div>
   
